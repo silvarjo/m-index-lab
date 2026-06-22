@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes">
+    <title>再次遇见 · 澳客</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f3f4f6;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', Helvetica, sans-serif;
+            color: #1e1e2a;
+            line-height: 1.65;
+            padding: 2rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 880px;
+            width: 100%;
+        }
+
+        /* 卡片通用设计 */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 2rem 2.2rem;
+            margin-bottom: 2.2rem;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card-soft {
+            background: #f9fafb;
+            border: 1px solid #e7e9ed;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        /* 开头短句 — 叙事简洁 */
+        .opening {
+            font-size: 1.4rem;
+            font-weight: 380;
+            letter-spacing: 0.01em;
+            color: #2b2b3a;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #e0e2e8;
+            line-height: 1.4;
+        }
+
+        .opening strong {
+            font-weight: 520;
+            color: #1e202b;
+        }
+
+        .opening .accent {
+            color: #3f3f57;
+            font-weight: 450;
+        }
+
+        /* 承接段落 */
+        .lead {
+            font-size: 1.04rem;
+            margin-bottom: 1.8rem;
+            color: #2d2d3a;
+            max-width: 90%;
+        }
+
+        .lead a {
+            color: #2b2b42;
+            text-decoration: underline;
+            text-decoration-thickness: 0.5px;
+            text-underline-offset: 3px;
+            transition: color 0.1s;
+        }
+
+        .lead a:hover {
+            color: #4a4a6a;
+            text-decoration-thickness: 1.5px;
+        }
+
+        /* 特点列表 — 克制叙述 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem 1.8rem;
+            margin: 1.2rem 0 0.8rem;
+        }
+
+        .feature-item {
+            border-left: 2px solid #d9dce2;
+            padding-left: 1.2rem;
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            color: #1e1f2b;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-item p {
+            font-size: 0.95rem;
+            color: #3d3d4b;
+            line-height: 1.5;
+        }
+
+        /* 场景叙述 */
+        .scene-text {
+            font-size: 1rem;
+            margin: 0.2rem 0 1.2rem;
+            padding: 0.5rem 0 0.2rem 0.5rem;
+            border-left: 1px solid #cdd1d9;
+            color: #313145;
+        }
+
+        .scene-text strong {
+            font-weight: 510;
+        }
+
+        .inline-link {
+            color: #2a2a3f;
+            text-decoration: underline;
+            text-decoration-color: #bbbcc9;
+            text-underline-offset: 3px;
+        }
+
+        .inline-link:hover {
+            color: #000;
+            text-decoration-color: #717187;
+        }
+
+        /* 温和结尾 */
+        .closing {
+            border-top: 1px solid #e2e4ea;
+            padding-top: 1.2rem;
+            margin-top: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem 0.8rem;
+        }
+
+        .closing-tag {
+            font-size: 0.92rem;
+            color: #4e4e5e;
+            background: #eef0f2;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            letter-spacing: 0.01em;
+        }
+
+        .closing-note {
+            font-size: 0.96rem;
+            color: #333348;
+        }
+
+        .closing-note a {
+            color: #2b2b40;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* FAQ 摘要 (克制) */
+        .faq-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.4rem;
+        }
+
+        .faq-q {
+            font-weight: 470;
+            font-size: 1rem;
+            border-bottom: 1px dashed #d3d6de;
+            padding-bottom: 0.2rem;
+            color: #1f1f2e;
+        }
+
+        .faq-a {
+            font-size: 0.94rem;
+            color: #3a3a4b;
+            margin-left: 1rem;
+            padding-left: 0.6rem;
+            border-left: 2px solid #dfe1e8;
+        }
+
+        .faq-a a {
+            color: #2b2b42;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        /* 提示条（非按钮、无诱导） */
+        .note {
+            background: #f1f2f5;
+            padding: 0.7rem 1.2rem;
+            border-radius: 60px;
+            font-size: 0.9rem;
+            color: #38384a;
+            display: inline-block;
+            margin-top: 0.8rem;
+            border: 1px solid #e4e6ec;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #dde0e6;
+            margin: 1.8rem 0 1rem;
+        }
+
+        /* 响应式细节 */
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 0.8rem;
+            }
+
+            .card {
+                padding: 1.5rem 1.2rem;
+                border-radius: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem 0;
+            }
+
+            .opening {
+                font-size: 1.2rem;
+            }
+
+            .lead {
+                max-width: 100%;
+            }
+
+            .closing {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .card {
+                padding: 1.2rem 1rem;
+            }
+
+            .feature-item {
+                padding-left: 0.8rem;
+            }
+
+            .faq-a {
+                margin-left: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+    <!-- 开场短句：再次访问 / 收藏 / 持续关注 基调 -->
+    <div class="card">
+        <div class="opening">
+            <span class="accent">再</span>次打开书签，<strong>澳客</strong> 还在原来的地方。
+        </div>
+        <div class="lead">
+            有些站点第一次遇见是偶然，第二次打开就变成了一种习惯。几个月前随手收藏的页面，如今成了我常驻的角落——<a href="https://m-index-aoke.com">澳客</a>。没有喧闹的弹窗，没有浮夸的标语，只是安静地提供着那些你反复需要的信息和工具。每次重新加载，界面依旧简洁，数据依旧清晰。
+        </div>
+        <div class="scene-text">
+            <strong>收藏夹里的老朋友</strong> —— 逛网站和逛旧书店有点像：真正值得反复翻的，从来不是装帧最花哨的那本。<br>
+            而 <a href="https://m-index-aoke.com" class="inline-link">澳客</a> 就是那种放在收藏夹第二行、隔几周就会点开一次的站点。没有强迫注册，没有信息瀑布流，只有你真正关心的内容。
+        </div>
+    </div>
+
+    <!-- 特点卡片 + 叙述 (特点列表) -->
+    <div class="card card-soft">
+        <h2 style="font-weight: 440; font-size: 1.2rem; margin-bottom: 1rem; letter-spacing: -0.01em; color: #232334;">· 几个让人记住的特点</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>入口轻简</h3>
+                <p>首页没有长篇大论的介绍，直入主题。对于每周要看几次的人来说，少一次点击就是多一分好感。</p>
+            </div>
+            <div class="feature-item">
+                <h3>信息结构稳</h3>
+                <p>布局很少大改，功能模块保持一致性。再次访问不会迷路，不需要重新学习页面逻辑。</p>
+            </div>
+            <div class="feature-item">
+                <h3>克制更新</h3>
+                <p>不频繁推送通知，不强迫刷新。数据按自己的节奏更新，给人一种“它就在那里”的可靠感。</p>
+            </div>
+            <div class="feature-item">
+                <h3>不追踪式体验</h3>
+                <p>没有眼花缭乱的个性化推荐，也不会因为点过一次就反复推送同类内容。页面尊重你的注意力。</p>
+            </div>
+        </div>
+
+        <!-- 承接上文：持续关注的视角 -->
+        <div style="margin: 1.2rem 0 0.2rem; font-size: 0.96rem; color: #383848; border-top: 1px solid #e5e7ed; padding-top: 1rem;">
+            <span style="background: #eef0f4; padding: 0.1rem 0.4rem; border-radius: 12px;">持续关注的缘由</span>
+            <span style="margin-left: 0.6rem;">信息不需要多，只需要在需要的时候出现。每次打开 <a href="https://m-index-aoke.com" style="color:#2b2b42; text-decoration: underline; text-underline-offset: 2px;">澳客</a>，页面加载完的那一刻，很少失望。</span>
+        </div>
+    </div>
+
+    <!-- 温和的 FAQ 摘要 (非硬推销) -->
+    <div class="card">
+        <h2 style="font-weight: 430; font-size: 1.15rem; margin-bottom: 0.5rem; color: #242438;">偶尔会想起的几个问题</h2>
+        <div class="faq-mini">
+            <div>
+                <div class="faq-q">重新访问时，页面变化大吗？</div>
+                <div class="faq-a">基本框架保持稳定，偶尔有细节微调，但核心功能区域一直保留。对于习惯性使用者很友好。</div>
+            </div>
+            <div>
+                <div class="faq-q">适合把链接放在浏览器书签栏吗？</div>
+                <div class="faq-a">个人体验是值得的。从收藏到日常使用，<a href="https://m-index-aoke.com">澳客</a> 属于那种不占用心理负担的站点——想起来了点开，看完就关，没有“小红点”焦虑。</div>
+            </div>
+            <div>
+                <div class="faq-q">会不会有一天突然打不开或者改版？</div>
+                <div class="faq-a">任何站点都有不确定性，但至少目前看来，它的维护节奏稳定，页面风格一致。如果担心变动，可以保持关注，但不必过度担忧。</div>
+            </div>
+        </div>
+
+        <!-- 收藏/再次访问 提示 -->
+        <div class="note">
+            📎 书签栏里留一个位置，下次想找它的时候不用翻历史记录。
+        </div>
+    </div>
+
+    <!-- 温和结尾 + 指向澳客链接 自然嵌入 -->
+    <div class="card" style="padding-bottom: 1.6rem;">
+        <div style="font-style: normal; font-size: 1rem; color: #2d2d3b;">
+            每一次重新打开，都是一次确认：<a href="https://m-index-aoke.com" style="color:#1f1f30; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px;">澳客</a> 依旧在那里。页面干干净净，数据明明白白——而这恰好是持续关注最朴素的理由。没有多余的煽动，只有日复一日的可用。如果你也曾把它放进收藏夹，不妨偶尔回来看看。
+        </div>
+
+        <div class="closing">
+            <span class="closing-tag">· 收藏 · 回访 · 日常</span>
+            <span class="closing-note">—— 一个安静的站点，值得被再次打开。<a href="https://m-index-aoke.com">澳客</a></span>
+        </div>
+        <hr>
+        <div style="font-size: 0.85rem; color: #6b6b7a; letter-spacing: 0.02em;">
+            本页面仅作个人介绍之用，不构成任何建议或承诺。信息保持真实与克制。
+        </div>
+    </div>
+</div>
+</body>
+</html>
